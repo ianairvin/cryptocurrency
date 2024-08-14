@@ -1,4 +1,4 @@
-package com.irvin.cryptocurrency.ui.theme
+package com.irvin.cryptocurrency.presentation.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
