@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">cryptocurrency</string>
+
+    <string name="currencies_title_top_bar">Список криптовалют</string>
+    <string name="currency_usd">USD</string>
+    <string name="currency_rub">RUB</string>
 </resources>

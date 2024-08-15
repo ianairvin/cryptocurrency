@@ -11,11 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.irvin.cryptocurrency.presentation.currencies_screen.CurrenciesScreen
-import com.irvin.cryptocurrency.presentation.currencies_screen.CurrenciesVM
-import com.irvin.cryptocurrency.presentation.description_screen.DescriptionVM
+import com.irvin.cryptocurrency.presentation.ui.currencies_screen.CurrenciesScreen
 import com.irvin.cryptocurrency.presentation.ui.theme.BackgroundColor
 import com.irvin.cryptocurrency.presentation.ui.theme.CryptocurrencyTheme
+import com.irvin.cryptocurrency.presentation.viewmodels.CurrenciesVM
+import com.irvin.cryptocurrency.presentation.viewmodels.DescriptionVM
 
 class MainActivity : ComponentActivity() {
     private val currenciesViewModel: CurrenciesVM by viewModels()

@@ -11,13 +11,14 @@ import androidx.compose.ui.unit.sp
 import com.irvin.cryptocurrency.R
 
 val Roboto = FontFamily(
-    Font(R.font.roboto_regular, FontWeight.Normal, FontStyle.Normal)
+    Font(R.font.roboto_regular, FontWeight.Normal, FontStyle.Normal),
+    Font(R.font.roboto_medium, FontWeight.Medium, FontStyle.Normal)
 )
 
 val Typography = Typography(
     h6 = TextStyle(
         fontFamily = Roboto,
-        fontWeight = FontWeight(500),
+        fontWeight = FontWeight.Medium,
         fontSize = 20.sp,
         lineHeight = 23.44.sp,
         letterSpacing = 0.15.sp,

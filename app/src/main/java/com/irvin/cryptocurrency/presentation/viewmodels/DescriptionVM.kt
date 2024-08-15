@@ -1,4 +1,4 @@
-package com.irvin.cryptocurrency.presentation.description_screen
+package com.irvin.cryptocurrency.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 

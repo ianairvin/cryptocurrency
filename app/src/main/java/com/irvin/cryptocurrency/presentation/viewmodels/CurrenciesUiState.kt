@@ -1,10 +1,10 @@
-package com.irvin.cryptocurrency.presentation.currencies_screen
+package com.irvin.cryptocurrency.presentation.viewmodels
 
 sealed interface CurrenciesUiState {
     data object Initial : CurrenciesUiState
     data object Loading: CurrenciesUiState
-    data class CurrenciesList(
-        val list: List<T>
+    data class Currencies(
+        val list: List<Int>
     ): CurrenciesUiState
     data object Error: CurrenciesUiState
 }

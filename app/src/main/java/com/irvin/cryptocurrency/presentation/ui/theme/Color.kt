@@ -3,12 +3,13 @@ package com.irvin.cryptocurrency.presentation.ui.theme
 import androidx.compose.ui.graphics.Color
 
 val BackgroundColor = Color(0xFFFFFFFF)
-val AppNameTopBarTextColor = Color(0xDE000000)
 
-val PickedChipsOverlayColor = Color(0xFFFF9F00)
-val PickedChipsTextColor = Color(0xFFFFAD25)
-val UnpickedChipsOverlayColor = Color(0xDE000000)
-val UnpickedChipsTextColor = Color(0x1F000000)
+val CurrenciesTitleTopBarTextColor = Color(0xDE000000)
+val PickedChipsTopBarOverlayColor = Color(0x29FFAD25)
+val PickedChipsTopBarTextColor = Color(0xFFFF9F00)
+val UnpickedChipsTopBarOverlayColor = Color(0x1F000000)
+val UnpickedChipsTopBarTextColor = Color(0xDE000000)
+
 
 val ProgressBarColor = Color(0xFFFF9F00)
 
