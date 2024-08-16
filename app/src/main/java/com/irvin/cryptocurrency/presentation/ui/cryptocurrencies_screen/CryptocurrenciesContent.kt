@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -43,7 +44,7 @@ fun CryptocurrenciesContent(
             is Initial -> Unit
             is Loading -> LoadingCryptocurrencies()
             is Cryptocurrencies -> CryptocurrenciesList(
-                //  uiState.collectAsState().value as Cryptocurrencies
+                uiState.collectAsState().value as Cryptocurrencies
             )
 
             is Error -> CryptocurrenciesError()
@@ -69,9 +70,65 @@ fun CryptocurrenciesError() {
 
 }
 
-@Preview
 @Composable
 fun CryptocurrenciesList(
+    uiState: Cryptocurrencies
 ) {
-
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 8.dp, bottom = 8.dp)
+    ) {
+        itemsIndexed(uiState.list) { _, it ->
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+            ) {
+                Image(
+                    modifier = Modifier.padding(start = 16.dp, top = 8.dp),
+                    imageVector = ImageVector.vectorResource(id = R.drawable.btc),
+                    contentDescription = ""
+                )
+                Column(Modifier.fillMaxSize()) {
+                    Row(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxWidth()
+                            .padding(start = 8.dp, end = 16.dp, top = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            modifier = Modifier.weight(1f),
+                            text = "Bitcoin",
+                            style = CryptoFullNameTextStyle
+                        )
+                        Text(
+                            modifier = Modifier.weight(1f),
+                            text = "$ 2,560.95",
+                            style = CryptoCostTextStyle
+                        )
+                    }
+                    Row(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxWidth()
+                            .padding(start = 8.dp, end = 16.dp, bottom = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            modifier = Modifier.weight(1f),
+                            text = "BTC",
+                            style = CryptoShortNameTextStyle
+                        )
+                        Text(
+                            modifier = Modifier.weight(1f),
+                            text = "+ 4.05%",
+                            style = CryptoIncreaseCostTextStyle
+                        )
+                    }
+                }
+            }
+        }
+    }
 }
