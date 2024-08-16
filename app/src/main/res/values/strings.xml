@@ -4,4 +4,6 @@
     <string name="currencies_title_top_bar">Список криптовалют</string>
     <string name="currency_usd">USD</string>
     <string name="currency_rub">RUB</string>
+    <string name="error">Произошла какая-то ошибка :("\n"Попробуем снова?</string>
+    <string name="error_button">ПОПРОБОВАТЬ</string>
 </resources>

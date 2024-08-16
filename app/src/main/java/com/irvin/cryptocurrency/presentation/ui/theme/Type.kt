@@ -98,5 +98,15 @@ val CryptoDecreaseCostTextStyle = TextStyle(
     lineHeight = 16.41.sp,
     letterSpacing = 0.sp,
     textAlign = TextAlign.End,
-    color = CryptoDecreaseCostTextColor,
+    color = CryptoDecreaseCostTextColor
+)
+
+val ErrorTextStyle = TextStyle(
+    fontFamily = Roboto,
+    fontWeight = FontWeight.Normal,
+    fontSize = 16.sp,
+    lineHeight = 18.75.sp,
+    letterSpacing = 0.sp,
+    textAlign = TextAlign.Center,
+    color = ErrorTextColor
 )

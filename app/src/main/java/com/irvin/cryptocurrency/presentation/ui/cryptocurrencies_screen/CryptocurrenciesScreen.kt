@@ -42,7 +42,11 @@ fun CryptocurrenciesScreen(
             cryptocurrenciesViewModel.pickedCurrency,
             cryptocurrenciesViewModel::changeStateToLoading
         )
-        CryptocurrenciesContent(Modifier.weight(5f), cryptocurrenciesViewModel.uiState)
+        CryptocurrenciesContent(
+            Modifier.weight(5f),
+            cryptocurrenciesViewModel.uiState,
+            cryptocurrenciesViewModel::changeStateToLoading
+        )
     }
 }
 

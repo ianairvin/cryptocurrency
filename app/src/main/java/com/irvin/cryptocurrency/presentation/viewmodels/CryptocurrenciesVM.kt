@@ -47,6 +47,6 @@ class CryptocurrenciesVM @Inject constructor(
 
     init {
         startObservingState()
-        _uiState.value = CryptocurrenciesUiState.Loading
+        _uiState.value = CryptocurrenciesUiState.Error
     }
 }
