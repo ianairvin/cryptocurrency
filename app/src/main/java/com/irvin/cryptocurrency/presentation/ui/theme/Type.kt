@@ -1,6 +1,7 @@
 package com.irvin.cryptocurrency.presentation.ui.theme
 
 import androidx.compose.material.Typography
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -48,4 +49,54 @@ val Typography = Typography(
         letterSpacing = 0.75.sp,
         textAlign = TextAlign.Center
     )
+)
+
+val CryptoFullNameTextStyle = TextStyle(
+    fontFamily = Roboto,
+    fontWeight = FontWeight.Medium,
+    fontSize = 16.sp,
+    lineHeight = 18.75.sp,
+    letterSpacing = 0.sp,
+    textAlign = TextAlign.Start,
+    color = CryptoFullNameTextColor,
+)
+
+val CryptoShortNameTextStyle = TextStyle(
+    fontFamily = Roboto,
+    fontWeight = FontWeight.Normal,
+    fontSize = 14.sp,
+    lineHeight = 16.41.sp,
+    letterSpacing = 0.sp,
+    textAlign = TextAlign.Start,
+    color = CryptoShortNameTextColor,
+)
+
+val CryptoCostTextStyle = TextStyle(
+    fontFamily = Roboto,
+    fontWeight = FontWeight(600),
+    fontSize = 16.sp,
+    lineHeight = 18.75.sp,
+    letterSpacing = 0.sp,
+    textAlign = TextAlign.End,
+    color = CryptoCostTextColor,
+)
+
+val CryptoIncreaseCostTextStyle = TextStyle(
+    fontFamily = Roboto,
+    fontWeight = FontWeight.Normal,
+    fontSize = 14.sp,
+    lineHeight = 16.41.sp,
+    letterSpacing = 0.sp,
+    textAlign = TextAlign.End,
+    color = CryptoIncreaseCostTextColor
+)
+
+val CryptoDecreaseCostTextStyle = TextStyle(
+    fontFamily = Roboto,
+    fontWeight = FontWeight.Normal,
+    fontSize = 14.sp,
+    lineHeight = 16.41.sp,
+    letterSpacing = 0.sp,
+    textAlign = TextAlign.End,
+    color = CryptoDecreaseCostTextColor,
 )

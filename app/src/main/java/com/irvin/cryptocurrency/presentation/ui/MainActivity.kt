@@ -1,4 +1,4 @@
-package com.irvin.cryptocurrency.presentation
+package com.irvin.cryptocurrency.presentation.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,14 +11,16 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.irvin.cryptocurrency.presentation.ui.currencies_screen.CurrenciesScreen
+import com.irvin.cryptocurrency.presentation.ui.cryptocurrencies_screen.CryptocurrenciesScreen
 import com.irvin.cryptocurrency.presentation.ui.theme.BackgroundColor
 import com.irvin.cryptocurrency.presentation.ui.theme.CryptocurrencyTheme
-import com.irvin.cryptocurrency.presentation.viewmodels.CurrenciesVM
+import com.irvin.cryptocurrency.presentation.viewmodels.CryptocurrenciesVM
 import com.irvin.cryptocurrency.presentation.viewmodels.DescriptionVM
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val currenciesViewModel: CurrenciesVM by viewModels()
+    private val cryptocurrenciesViewModel: CryptocurrenciesVM by viewModels()
     private val descriptionViewModel: DescriptionVM by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +35,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     NavHost(navController = navController, startDestination = "cryptocurrencies") {
                         composable("cryptocurrencies") {
-                            CurrenciesScreen(Modifier, currenciesViewModel)
+                            CryptocurrenciesScreen(Modifier, cryptocurrenciesViewModel)
                         }
                         composable("description_currency") {
                             //DescriptionScreen()
