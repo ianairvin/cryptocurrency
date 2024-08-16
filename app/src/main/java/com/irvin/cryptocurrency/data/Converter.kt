@@ -9,7 +9,6 @@ object Converter {
             name = cryptocurrencyDTO.name,
             shortName = cryptocurrencyDTO.symbol,
             price = cryptocurrencyDTO.current_price,
-            priceChange = cryptocurrencyDTO.price_change_24h,
             priceChangePercentage = cryptocurrencyDTO.price_change_percentage_24h,
             image = cryptocurrencyDTO.image
             )

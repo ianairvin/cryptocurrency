@@ -9,6 +9,6 @@ interface Api {
     @GET("coins/markets")
     suspend fun loadCryptocurrencies(
         @Query("vs_currency") currency: String,
-        @Query("per_page") numberOfItems: String = "20"
+        @Query("per_page") numberOfItems: String = "30"
     ): List<CryptocurrencyDTO>
 }

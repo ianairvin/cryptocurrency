@@ -1,5 +1,6 @@
 package com.irvin.cryptocurrency.presentation.ui.cryptocurrencies_screen
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,19 +21,25 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.irvin.cryptocurrency.R
+import com.irvin.cryptocurrency.domain.entities.Cryptocurrency
 import com.irvin.cryptocurrency.domain.entities.Currency
 import com.irvin.cryptocurrency.presentation.ui.theme.ButtonColor
 import com.irvin.cryptocurrency.presentation.ui.theme.ButtonTextColor
+import com.irvin.cryptocurrency.presentation.ui.theme.CryptoDecreasePriceTextStyle
 import com.irvin.cryptocurrency.presentation.ui.theme.CryptoFullNameTextStyle
 import com.irvin.cryptocurrency.presentation.ui.theme.CryptoIncreasePriceTextStyle
+import com.irvin.cryptocurrency.presentation.ui.theme.CryptoNeutralChangePriceTextStyle
 import com.irvin.cryptocurrency.presentation.ui.theme.CryptoPriceTextStyle
 import com.irvin.cryptocurrency.presentation.ui.theme.CryptoShortNameTextStyle
 import com.irvin.cryptocurrency.presentation.ui.theme.ErrorTextStyle
@@ -43,6 +50,9 @@ import com.irvin.cryptocurrency.presentation.viewmodels.CryptocurrenciesUiState.
 import com.irvin.cryptocurrency.presentation.viewmodels.CryptocurrenciesUiState.Initial
 import com.irvin.cryptocurrency.presentation.viewmodels.CryptocurrenciesUiState.Loading
 import kotlinx.coroutines.flow.StateFlow
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import kotlin.math.abs
 
 @Composable
 fun CryptocurrenciesContent(
@@ -55,12 +65,11 @@ fun CryptocurrenciesContent(
         when (uiState.collectAsState().value) {
             is Initial -> Unit
             is Loading -> LoadingCryptocurrencies()
+            is Error -> CryptocurrenciesError(changeStateToLoading)
             is Cryptocurrencies -> CryptocurrenciesList(
                 uiState.collectAsState().value as Cryptocurrencies,
                 pickedCurrency
             )
-
-            is Error -> CryptocurrenciesError(changeStateToLoading)
         }
     }
 }
@@ -90,7 +99,7 @@ fun CryptocurrenciesError(
         Image(
             modifier = Modifier.size(120.dp),
             imageVector = ImageVector.vectorResource(id = R.drawable.btc),
-            contentDescription = ""
+            contentDescription = null
         )
         Spacer(Modifier.padding(8.dp))
         Text(
@@ -124,57 +133,97 @@ fun CryptocurrenciesList(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 8.dp, bottom = 8.dp)
     ) {
-        itemsIndexed(uiState.list) { _, it ->
+        itemsIndexed(uiState.list) { index, it ->
+            when (index) {
+                0 -> {
+                    Spacer(Modifier.height(8.dp))
+                    ItemCryptoCurrency(it, pickedCurrency)
+                }
+
+                uiState.list.size - 1 -> {
+                    ItemCryptoCurrency(it, pickedCurrency)
+                    Spacer(Modifier.height(12.dp))
+                }
+
+                else -> ItemCryptoCurrency(it, pickedCurrency)
+            }
+        }
+    }
+}
+
+@Composable
+fun ItemCryptoCurrency(
+    item: Cryptocurrency,
+    pickedCurrency: StateFlow<Currency>
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(56.dp)
+    ) {
+        AsyncImage(
+            modifier = Modifier.padding(start = 16.dp, top = 8.dp).size(40.dp),
+            model = item.image,
+            contentDescription = null
+        )
+        Column(Modifier.fillMaxSize()) {
+            val symbols = remember { DecimalFormatSymbols() }
+            symbols.setDecimalSeparator('.')
+            symbols.setGroupingSeparator(',')
             Row(
                 modifier = Modifier
+                    .weight(1f)
                     .fillMaxWidth()
-                    .height(56.dp)
+                    .padding(start = 8.dp, end = 16.dp, top = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Image(
-                    modifier = Modifier.padding(start = 16.dp, top = 8.dp),
-                    imageVector = ImageVector.vectorResource(id = R.drawable.btc),
-                    contentDescription = ""
+                Text(
+                    modifier = Modifier.weight(1f),
+                    text = item.name,
+                    style = CryptoFullNameTextStyle
                 )
-                Column(Modifier.fillMaxSize()) {
-                    Row(
-                        modifier = Modifier
-                            .weight(1f)
-                            .fillMaxWidth()
-                            .padding(start = 8.dp, end = 16.dp, top = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            modifier = Modifier.weight(1f),
-                            text = it.name,
-                            style = CryptoFullNameTextStyle
-                        )
-                        Text(
-                            modifier = Modifier.weight(1f),
-                            text = (if (pickedCurrency.collectAsState().value == Currency.USD) "$"
-                                    else "₽") + it.priceChange.toString(),
-                            style = CryptoPriceTextStyle
-                        )
-                    }
-                    Row(
-                        modifier = Modifier
-                            .weight(1f)
-                            .fillMaxWidth()
-                            .padding(start = 8.dp, end = 16.dp, bottom = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            modifier = Modifier.weight(1f),
-                            text = it.shortName.uppercase(),
-                            style = CryptoShortNameTextStyle
-                        )
-                        Text(
-                            modifier = Modifier.weight(1f),
-                            text = "${it.priceChangePercentage} %",
-                            style = CryptoIncreasePriceTextStyle
-                        )
-                    }
+                Text(
+                    modifier = Modifier.weight(1f),
+                    text = (if (pickedCurrency.collectAsState().value == Currency.USD) "$ "
+                    else "₽ ")
+                            + DecimalFormat("#,##0.00", symbols).format(item.price),
+                    style = CryptoPriceTextStyle
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .padding(start = 8.dp, end = 16.dp, bottom = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    modifier = Modifier.weight(1f),
+                    text = item.shortName.uppercase(),
+                    style = CryptoShortNameTextStyle
+                )
+                if(item.priceChangePercentage > 0.0) {
+                    Text(
+                        modifier = Modifier.weight(1f),
+                        text = DecimalFormat("+ 0.00", symbols)
+                            .format(item.priceChangePercentage) + "%",
+                        style = CryptoIncreasePriceTextStyle
+                    )
+                } else if(item.priceChangePercentage == 0.0){
+                    Text(
+                        modifier = Modifier.weight(1f),
+                        text = DecimalFormat("0.00", symbols)
+                            .format(item.priceChangePercentage) + "%",
+                        style = CryptoNeutralChangePriceTextStyle
+                    )
+                } else {
+                    Text(
+                        modifier = Modifier.weight(1f),
+                        text = DecimalFormat("- 0.00", symbols)
+                            .format(abs(item.priceChangePercentage)) + "%",
+                        style = CryptoDecreasePriceTextStyle
+                    )
                 }
             }
         }

@@ -100,6 +100,16 @@ val CryptoDecreasePriceTextStyle = TextStyle(
     color = CryptoDecreasePriceTextColor
 )
 
+val CryptoNeutralChangePriceTextStyle = TextStyle(
+    fontFamily = Roboto,
+    fontWeight = FontWeight.Normal,
+    fontSize = 14.sp,
+    lineHeight = 16.41.sp,
+    letterSpacing = 0.sp,
+    textAlign = TextAlign.End,
+    color = CryptoNeutralChangePriceTextColor
+)
+
 val ErrorTextStyle = TextStyle(
     fontFamily = Roboto,
     fontWeight = FontWeight.Normal,

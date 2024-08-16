@@ -22,6 +22,7 @@ val CryptoShortNameTextColor = Color(0xFF9B9B9B)
 val CryptoPriceTextColor = Color(0xFF525252)
 val CryptoIncreasePriceTextColor = Color(0xFF2A9D8F)
 val CryptoDecreasePriceTextColor = Color(0xFFEB5757)
+val CryptoNeutralChangePriceTextColor = Color(0xFF525252)
 
 val CryptoNameTopBarTextColor = Color(0xDE000000)
 val CryptoDescriptionTextColor = Color(0xFF000000)

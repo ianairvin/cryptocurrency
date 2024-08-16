@@ -4,7 +4,6 @@ data class Cryptocurrency(
     val name: String,
     val shortName: String,
     val price: Double,
-    val priceChange: Double,
     val priceChangePercentage: Double,
     val image: String
 )
