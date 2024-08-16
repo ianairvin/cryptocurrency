@@ -1,15 +1,24 @@
 package com.irvin.cryptocurrency.data
 
+import android.util.Log
+import com.irvin.cryptocurrency.data.retrofit.Api
 import com.irvin.cryptocurrency.domain.entities.Cryptocurrency
+import com.irvin.cryptocurrency.domain.entities.Currency
 import com.irvin.cryptocurrency.domain.repository.CryptocurrenciesRepository
 import kotlinx.coroutines.delay
+import javax.inject.Inject
 
-class CryptocurrenciesRepositoryImpl : CryptocurrenciesRepository {
-    override suspend fun getCryptocurrencies(): Result<List<Cryptocurrency>> {
-        delay(1000L)
+class CryptocurrenciesRepositoryImpl @Inject constructor(
+    private val api: Api
+) : CryptocurrenciesRepository {
+    override suspend fun getCryptocurrencies(
+        currency: Currency
+    ): Result<List<Cryptocurrency>> {
         return try {
-            Result.success(emptyList())
-        } catch (e: Throwable) {
+            val apiList = api.loadCryptocurrencies(currency.title.lowercase())
+            val list = apiList.map { Converter.toCryptocurrency(it) }
+            Result.success(list)
+        } catch (e: Exception) {
             Result.failure(e)
         }
     }

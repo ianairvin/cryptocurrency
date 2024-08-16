@@ -1,7 +1,6 @@
 package com.irvin.cryptocurrency.presentation.ui.theme
 
 import androidx.compose.material.Typography
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -71,34 +70,34 @@ val CryptoShortNameTextStyle = TextStyle(
     color = CryptoShortNameTextColor,
 )
 
-val CryptoCostTextStyle = TextStyle(
+val CryptoPriceTextStyle = TextStyle(
     fontFamily = Roboto,
     fontWeight = FontWeight(600),
     fontSize = 16.sp,
     lineHeight = 18.75.sp,
     letterSpacing = 0.sp,
     textAlign = TextAlign.End,
-    color = CryptoCostTextColor,
+    color = CryptoPriceTextColor,
 )
 
-val CryptoIncreaseCostTextStyle = TextStyle(
+val CryptoIncreasePriceTextStyle = TextStyle(
     fontFamily = Roboto,
     fontWeight = FontWeight.Normal,
     fontSize = 14.sp,
     lineHeight = 16.41.sp,
     letterSpacing = 0.sp,
     textAlign = TextAlign.End,
-    color = CryptoIncreaseCostTextColor
+    color = CryptoIncreasePriceTextColor
 )
 
-val CryptoDecreaseCostTextStyle = TextStyle(
+val CryptoDecreasePriceTextStyle = TextStyle(
     fontFamily = Roboto,
     fontWeight = FontWeight.Normal,
     fontSize = 14.sp,
     lineHeight = 16.41.sp,
     letterSpacing = 0.sp,
     textAlign = TextAlign.End,
-    color = CryptoDecreaseCostTextColor
+    color = CryptoDecreasePriceTextColor
 )
 
 val ErrorTextStyle = TextStyle(

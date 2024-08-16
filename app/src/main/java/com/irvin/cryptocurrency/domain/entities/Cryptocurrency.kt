@@ -2,6 +2,9 @@ package com.irvin.cryptocurrency.domain.entities
 
 data class Cryptocurrency(
     val name: String,
-    val currency: String,
-    val cost: Int
+    val shortName: String,
+    val price: Double,
+    val priceChange: Double,
+    val priceChangePercentage: Double,
+    val image: String
 )

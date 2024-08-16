@@ -14,6 +14,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -30,6 +32,7 @@ import com.irvin.cryptocurrency.presentation.ui.theme.Typography
 import com.irvin.cryptocurrency.presentation.ui.theme.UnpickedChipsTopBarOverlayColor
 import com.irvin.cryptocurrency.presentation.ui.theme.UnpickedChipsTopBarTextColor
 import com.irvin.cryptocurrency.presentation.viewmodels.CryptocurrenciesVM
+import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun CryptocurrenciesScreen(
@@ -39,13 +42,14 @@ fun CryptocurrenciesScreen(
     Column(modifier = modifier) {
         ToolBar(
             Modifier.weight(1f),
-            cryptocurrenciesViewModel.pickedCurrency,
-            cryptocurrenciesViewModel::changeStateToLoading
+            cryptocurrenciesViewModel::changePickedCurrency,
+            cryptocurrenciesViewModel.pickedCurrency
         )
         CryptocurrenciesContent(
             Modifier.weight(5f),
             cryptocurrenciesViewModel.uiState,
-            cryptocurrenciesViewModel::changeStateToLoading
+            cryptocurrenciesViewModel::changePickedCurrency,
+            cryptocurrenciesViewModel.pickedCurrency
         )
     }
 }
@@ -53,8 +57,8 @@ fun CryptocurrenciesScreen(
 @Composable
 fun ToolBar(
     modifier: Modifier,
-    pickedCurrency: MutableState<String>,
-    changeStateToLoading: () -> Unit
+    changePickedCurrency: () -> Unit,
+    pickedCurrency: StateFlow<Currency>,
 ) {
     TopAppBar(
         modifier = modifier.fillMaxWidth(),
@@ -82,8 +86,8 @@ fun ToolBar(
                 horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                ChipItem(pickedCurrency, Currency.USD.title, 16.dp, changeStateToLoading)
-                ChipItem(pickedCurrency, Currency.RUB.title, 8.dp, changeStateToLoading)
+                ChipItem(pickedCurrency, Currency.USD, 16.dp, changePickedCurrency)
+                ChipItem(pickedCurrency, Currency.RUB, 8.dp, changePickedCurrency)
             }
         }
     }
@@ -92,10 +96,10 @@ fun ToolBar(
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ChipItem(
-    pickedCurrency: MutableState<String>,
-    currency: String,
+    pickedCurrency: StateFlow<Currency>,
+    currency: Currency,
     paddingStart: Dp,
-    changeStateToLoading: () -> Unit
+    changePickedCurrency: () -> Unit
 ) {
     Chip(
         modifier = Modifier
@@ -103,27 +107,26 @@ fun ChipItem(
             .height(32.dp)
             .width(89.dp),
         colors = ChipDefaults.chipColors(
-            backgroundColor = if (pickedCurrency.value == currency) {
+            backgroundColor = if (pickedCurrency.collectAsState().value == currency) {
                 PickedChipsTopBarOverlayColor
             } else {
                 UnpickedChipsTopBarOverlayColor
             },
-            contentColor = if (pickedCurrency.value == currency) {
+            contentColor = if (pickedCurrency.collectAsState().value == currency) {
                 PickedChipsTopBarTextColor
             } else {
                 UnpickedChipsTopBarTextColor
             },
         ),
         onClick = {
-            pickedCurrency.value = currency
-            changeStateToLoading()
+            changePickedCurrency()
         }
     ) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             style = Typography.body2,
             textAlign = TextAlign.Center,
-            text = if (currency == Currency.USD.title) stringResource(R.string.currency_usd) else stringResource(
+            text = if (currency == Currency.USD) stringResource(R.string.currency_usd) else stringResource(
                 R.string.currency_rub
             )
         )

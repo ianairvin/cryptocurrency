@@ -28,11 +28,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.irvin.cryptocurrency.R
+import com.irvin.cryptocurrency.domain.entities.Currency
 import com.irvin.cryptocurrency.presentation.ui.theme.ButtonColor
 import com.irvin.cryptocurrency.presentation.ui.theme.ButtonTextColor
-import com.irvin.cryptocurrency.presentation.ui.theme.CryptoCostTextStyle
 import com.irvin.cryptocurrency.presentation.ui.theme.CryptoFullNameTextStyle
-import com.irvin.cryptocurrency.presentation.ui.theme.CryptoIncreaseCostTextStyle
+import com.irvin.cryptocurrency.presentation.ui.theme.CryptoIncreasePriceTextStyle
+import com.irvin.cryptocurrency.presentation.ui.theme.CryptoPriceTextStyle
 import com.irvin.cryptocurrency.presentation.ui.theme.CryptoShortNameTextStyle
 import com.irvin.cryptocurrency.presentation.ui.theme.ErrorTextStyle
 import com.irvin.cryptocurrency.presentation.ui.theme.ProgressBarColor
@@ -47,15 +48,18 @@ import kotlinx.coroutines.flow.StateFlow
 fun CryptocurrenciesContent(
     modifier: Modifier,
     uiState: StateFlow<CryptocurrenciesUiState>,
-    changeStateToLoading: () -> Unit
+    changeStateToLoading: () -> Unit,
+    pickedCurrency: StateFlow<Currency>
 ) {
     Box(modifier.fillMaxSize()) {
         when (uiState.collectAsState().value) {
             is Initial -> Unit
             is Loading -> LoadingCryptocurrencies()
             is Cryptocurrencies -> CryptocurrenciesList(
-                uiState.collectAsState().value as Cryptocurrencies
+                uiState.collectAsState().value as Cryptocurrencies,
+                pickedCurrency
             )
+
             is Error -> CryptocurrenciesError(changeStateToLoading)
         }
     }
@@ -82,7 +86,7 @@ fun CryptocurrenciesError(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
-    ){
+    ) {
         Image(
             modifier = Modifier.size(120.dp),
             imageVector = ImageVector.vectorResource(id = R.drawable.btc),
@@ -95,13 +99,15 @@ fun CryptocurrenciesError(
         )
         Spacer(Modifier.padding(16.dp))
         Button(
-            modifier = Modifier.height(36.dp).width(175.dp),
+            modifier = Modifier
+                .height(36.dp)
+                .width(175.dp),
             onClick = { changeStateToLoading() },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = ButtonColor,
                 contentColor = ButtonTextColor
             )
-        ){
+        ) {
             Text(
                 text = stringResource(R.string.error_button),
                 style = typography.button
@@ -112,7 +118,8 @@ fun CryptocurrenciesError(
 
 @Composable
 fun CryptocurrenciesList(
-    uiState: Cryptocurrencies
+    uiState: Cryptocurrencies,
+    pickedCurrency: StateFlow<Currency>,
 ) {
     LazyColumn(
         modifier = Modifier
@@ -140,13 +147,14 @@ fun CryptocurrenciesList(
                     ) {
                         Text(
                             modifier = Modifier.weight(1f),
-                            text = "Bitcoin",
+                            text = it.name,
                             style = CryptoFullNameTextStyle
                         )
                         Text(
                             modifier = Modifier.weight(1f),
-                            text = "$ 2,560.95",
-                            style = CryptoCostTextStyle
+                            text = (if (pickedCurrency.collectAsState().value == Currency.USD) "$"
+                                    else "₽") + it.priceChange.toString(),
+                            style = CryptoPriceTextStyle
                         )
                     }
                     Row(
@@ -158,13 +166,13 @@ fun CryptocurrenciesList(
                     ) {
                         Text(
                             modifier = Modifier.weight(1f),
-                            text = "BTC",
+                            text = it.shortName.uppercase(),
                             style = CryptoShortNameTextStyle
                         )
                         Text(
                             modifier = Modifier.weight(1f),
-                            text = "+ 4.05%",
-                            style = CryptoIncreaseCostTextStyle
+                            text = "${it.priceChangePercentage} %",
+                            style = CryptoIncreasePriceTextStyle
                         )
                     }
                 }

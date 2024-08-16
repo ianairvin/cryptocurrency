@@ -1,6 +1,7 @@
 package com.irvin.cryptocurrency.di
 
 import com.irvin.cryptocurrency.data.CryptocurrenciesRepositoryImpl
+import com.irvin.cryptocurrency.data.retrofit.Api
 import com.irvin.cryptocurrency.domain.repository.CryptocurrenciesRepository
 import dagger.Module
 import dagger.Provides
@@ -13,7 +14,7 @@ import javax.inject.Singleton
 object DataModule {
     @Provides
     @Singleton
-    fun provideCryptocurrenciesRepository(): CryptocurrenciesRepository {
-        return CryptocurrenciesRepositoryImpl()
+    fun provideCryptocurrenciesRepository(api: Api): CryptocurrenciesRepository {
+        return CryptocurrenciesRepositoryImpl(api)
     }
 }
