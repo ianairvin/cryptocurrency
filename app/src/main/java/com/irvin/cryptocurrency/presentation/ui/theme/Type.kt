@@ -22,7 +22,8 @@ val Typography = Typography(
         fontSize = 20.sp,
         lineHeight = 23.44.sp,
         letterSpacing = 0.15.sp,
-        textAlign = TextAlign.Left
+        textAlign = TextAlign.Left,
+        color = TitleTopBarTextColor
     ),
     body1 = TextStyle(
         fontFamily = Roboto,

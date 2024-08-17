@@ -6,4 +6,8 @@
     <string name="currency_rub">RUB</string>
     <string name="error">Произошла какая-то ошибка :("\n"Попробуем снова?</string>
     <string name="error_button">ПОПРОБОВАТЬ</string>
+
+    <string name="cryptocurrencies_route">cryptocurrencies</string>
+    <string name="description_currency_route">description_currency</string>
+    <string name="description_navigate_argument">picked_cryptocurrency</string>
 </resources>

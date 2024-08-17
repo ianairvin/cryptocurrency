@@ -1,8 +1,5 @@
 package com.irvin.cryptocurrency.presentation.viewmodels
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.irvin.cryptocurrency.domain.entities.Currency
@@ -34,7 +31,7 @@ class CryptocurrenciesVM @Inject constructor(
         }
     }
 
-    fun changeStateToLoading() {
+    private fun changeStateToLoading() {
         _uiState.value = CryptocurrenciesUiState.Loading
     }
 

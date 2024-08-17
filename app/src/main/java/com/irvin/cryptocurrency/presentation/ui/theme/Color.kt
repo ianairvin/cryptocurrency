@@ -3,8 +3,8 @@ package com.irvin.cryptocurrency.presentation.ui.theme
 import androidx.compose.ui.graphics.Color
 
 val BackgroundColor = Color(0xFFFFFFFF)
+val TitleTopBarTextColor = Color(0xDE000000)
 
-val CurrenciesTitleTopBarTextColor = Color(0xDE000000)
 val PickedChipsTopBarOverlayColor = Color(0x29FFAD25)
 val PickedChipsTopBarTextColor = Color(0xFFFF9F00)
 val UnpickedChipsTopBarOverlayColor = Color(0x1F000000)
@@ -24,5 +24,5 @@ val CryptoIncreasePriceTextColor = Color(0xFF2A9D8F)
 val CryptoDecreasePriceTextColor = Color(0xFFEB5757)
 val CryptoNeutralChangePriceTextColor = Color(0xFF525252)
 
-val CryptoNameTopBarTextColor = Color(0xDE000000)
+val IconBackColor = Color(0x8A000000)
 val CryptoDescriptionTextColor = Color(0xFF000000)

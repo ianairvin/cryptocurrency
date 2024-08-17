@@ -8,10 +8,15 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.irvin.cryptocurrency.R
 import com.irvin.cryptocurrency.presentation.ui.cryptocurrencies_screen.CryptocurrenciesScreen
+import com.irvin.cryptocurrency.presentation.ui.description_screen.DescriptionScreen
 import com.irvin.cryptocurrency.presentation.ui.theme.BackgroundColor
 import com.irvin.cryptocurrency.presentation.ui.theme.CryptocurrencyTheme
 import com.irvin.cryptocurrency.presentation.viewmodels.CryptocurrenciesVM
@@ -33,12 +38,31 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize()
                         .background(BackgroundColor)
                 ) {
-                    NavHost(navController = navController, startDestination = "cryptocurrencies") {
-                        composable("cryptocurrencies") {
-                            CryptocurrenciesScreen(Modifier, cryptocurrenciesViewModel)
+                    val cryptocurrenciesRoute = stringResource(id = R.string.cryptocurrencies_route)
+                    val descriptionRoute = stringResource(id = R.string.description_currency_route)
+                    val descriptionNavArgument =
+                        stringResource(id = R.string.description_navigate_argument)
+                    NavHost(
+                        navController = navController,
+                        startDestination = cryptocurrenciesRoute
+                    ) {
+                        composable(cryptocurrenciesRoute) {
+                            CryptocurrenciesScreen(
+                                Modifier,
+                                cryptocurrenciesViewModel,
+                                navController
+                            )
                         }
-                        composable("description_currency") {
-                            //DescriptionScreen()
+                        composable(
+                            route = "${descriptionRoute}/{${descriptionNavArgument}}",
+                            arguments = listOf(navArgument(descriptionNavArgument) {
+                                type = NavType.StringType
+                            })
+                        ) { backStackEntry ->
+                            backStackEntry.arguments?.getString(descriptionNavArgument)?.let {
+                                descriptionViewModel.changePickedCryptocurrency(it)
+                            }
+                            DescriptionScreen(Modifier, descriptionViewModel, navController)
                         }
                     }
                 }
