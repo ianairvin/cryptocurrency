@@ -140,6 +140,16 @@ fun ItemCryptoCurrency(
             val symbols = remember { DecimalFormatSymbols() }
             symbols.setDecimalSeparator('.')
             symbols.setGroupingSeparator(',')
+            val decimalFormatCryptocurrencyName =
+                if((item.price / 0.0001).toInt() == 0) {
+                    DecimalFormat("#,##0.000000", symbols)
+                } else if ((item.price / 0.001).toInt() == 0) {
+                    DecimalFormat("#,##0.00000", symbols)
+                } else if ((item.price / 0.01).toInt() == 0) {
+                    DecimalFormat("#,##0.0000", symbols)
+                } else {
+                    DecimalFormat("#,##0.00", symbols)
+                }
             Row(
                 modifier = Modifier
                     .weight(1f)
@@ -156,7 +166,7 @@ fun ItemCryptoCurrency(
                     modifier = Modifier.weight(1f),
                     text = (if (pickedCurrency.collectAsState().value == Currency.USD) "$ "
                     else "₽ ")
-                            + DecimalFormat("#,##0.00", symbols).format(item.price),
+                            + decimalFormatCryptocurrencyName.format(item.price),
                     style = CryptoPriceTextStyle
                 )
             }
@@ -172,19 +182,37 @@ fun ItemCryptoCurrency(
                     text = item.shortName.uppercase(),
                     style = CryptoShortNameTextStyle
                 )
-                if (item.priceChangePercentage > 0.0) {
-                    Text(
-                        modifier = Modifier.weight(1f),
-                        text = DecimalFormat("+ 0.00", symbols)
-                            .format(item.priceChangePercentage) + "%",
-                        style = CryptoIncreasePriceTextStyle
-                    )
-                } else if (item.priceChangePercentage == 0.0) {
+                if ((item.priceChangePercentage / 0.01).toInt() == 0
+                    && (item.priceChangePercentage / 0.0001).toInt() != 0
+                ) {
+                    if (item.priceChangePercentage > 0.0) {
+                        Text(
+                            modifier = Modifier.weight(1f),
+                            text = DecimalFormat("+ 0.0000", symbols)
+                                .format(item.priceChangePercentage) + "%",
+                            style = CryptoIncreasePriceTextStyle
+                        )
+                    } else {
+                        Text(
+                            modifier = Modifier.weight(1f),
+                            text = DecimalFormat("- 0.0000", symbols)
+                                .format(abs(item.priceChangePercentage)) + "%",
+                            style = CryptoDecreasePriceTextStyle
+                        )
+                    }
+                } else if ((item.priceChangePercentage / 0.0001) == 0.0) {
                     Text(
                         modifier = Modifier.weight(1f),
                         text = DecimalFormat("0.00", symbols)
                             .format(item.priceChangePercentage) + "%",
                         style = CryptoNeutralChangePriceTextStyle
+                    )
+                } else if (item.priceChangePercentage > 0.0) {
+                    Text(
+                        modifier = Modifier.weight(1f),
+                        text = DecimalFormat("+ 0.00", symbols)
+                            .format(item.priceChangePercentage) + "%",
+                        style = CryptoIncreasePriceTextStyle
                     )
                 } else {
                     Text(

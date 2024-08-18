@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -46,7 +48,13 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         startDestination = cryptocurrenciesRoute
                     ) {
-                        composable(cryptocurrenciesRoute) {
+                        composable(
+                            cryptocurrenciesRoute,
+                            enterTransition = { fadeIn() },
+                            exitTransition = { fadeOut() },
+                            popEnterTransition = { fadeIn() },
+                            popExitTransition = { fadeOut() }
+                        ) {
                             CryptocurrenciesScreen(
                                 Modifier,
                                 cryptocurrenciesViewModel,
@@ -57,7 +65,9 @@ class MainActivity : ComponentActivity() {
                             route = "${descriptionRoute}/{${descriptionNavArgument}}",
                             arguments = listOf(navArgument(descriptionNavArgument) {
                                 type = NavType.StringType
-                            })
+                            }),
+                            enterTransition = { fadeIn() },
+                            exitTransition = { fadeOut() }
                         ) { backStackEntry ->
                             backStackEntry.arguments?.getString(descriptionNavArgument)?.let {
                                 descriptionViewModel.changePickedCryptocurrency(it)
