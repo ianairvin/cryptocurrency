@@ -20,9 +20,10 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.irvin.cryptocurrency.R
 import com.irvin.cryptocurrency.presentation.ui.theme.Typography
+import com.irvin.cryptocurrency.presentation.viewmodels.InfoUiState
 
 @Composable
-fun InfoCryptocurrency() {
+fun InfoCryptocurrency(uiState: InfoUiState.Info) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -30,37 +31,36 @@ fun InfoCryptocurrency() {
             .verticalScroll(rememberScrollState())
     ) {
         Row(
-            modifier = Modifier.wrapContentHeight().fillMaxWidth(),
+            modifier = Modifier
+                .wrapContentHeight()
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
             AsyncImage(
                 modifier = Modifier.size(90.dp),
-                model = "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
+                model = uiState.info.image,
                 contentDescription = null
             )
         }
-            Spacer(Modifier.height(16.dp))
-            Text(
-                text = stringResource(R.string.header_description_cryptocurrency),
-                style = Typography.h6
-            )
-            Spacer(Modifier.height(8.dp))
-            Text(
-                text = "Bitcoin is a decentralized cryptocurrency originally described in a 2008 " +
-                        "whitepaper by a person, or group of people, using the alias Satoshi " +
-                        "Nakamoto. It was launched soon after, in January 2009.",
-                style = Typography.body1
-            )
-            Spacer(Modifier.height(16.dp))
-            Text(
-                text = stringResource(R.string.header_categories_cryptocurrency),
-                style = Typography.h6
-            )
-            Spacer(Modifier.height(8.dp))
-            Text(
-                text = "Smart Contract Platform, Ethereum Ecosystems",
-                style = Typography.body1
-            )
-
+        Spacer(Modifier.height(16.dp))
+        Text(
+            text = stringResource(R.string.header_description_cryptocurrency),
+            style = Typography.h6
+        )
+        Spacer(Modifier.height(8.dp))
+        Text(
+            text = uiState.info.description,
+            style = Typography.body1
+        )
+        Spacer(Modifier.height(16.dp))
+        Text(
+            text = stringResource(R.string.header_categories_cryptocurrency),
+            style = Typography.h6
+        )
+        Spacer(Modifier.height(8.dp))
+        Text(
+            text = uiState.info.categories.joinToString(separator = ", "),
+            style = Typography.body1
+        )
     }
 }

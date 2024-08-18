@@ -24,7 +24,7 @@ fun InfoContent(
         when (uiState.collectAsState().value) {
             is Initial -> Unit
             is Loading -> LoadingScreen()
-            is Info -> InfoCryptocurrency()
+            is Info -> InfoCryptocurrency(uiState.collectAsState().value as Info)
             is Error -> ErrorScreen(changeStateToLoading)
         }
     }
