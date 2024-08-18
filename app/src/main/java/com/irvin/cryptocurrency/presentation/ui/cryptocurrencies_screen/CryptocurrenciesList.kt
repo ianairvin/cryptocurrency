@@ -76,7 +76,7 @@ fun ItemCryptoCurrency(
             .fillMaxWidth()
             .height(56.dp)
             .clickable {
-                navController.navigate("${descriptionRoute}/${item.name}") {
+                navController.navigate("${descriptionRoute}/${item.name}/${item.id}") {
                     popUpTo(navController.graph.startDestinationId) {
                         saveState = true
                     }

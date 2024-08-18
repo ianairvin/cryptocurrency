@@ -13,7 +13,7 @@ fun DescriptionScreen(
     navController: NavHostController
 ) {
     Column(modifier = modifier) {
-        DescriptionToolBar(modifier, descriptionViewModel.pickedCryptocurrency, navController)
+        DescriptionToolBar(modifier, descriptionViewModel.pickedCryptocurrencyName, navController)
         DescriptionContent(
             modifier,
             descriptionViewModel.uiState,

@@ -11,11 +11,14 @@ class DescriptionVM : ViewModel() {
     private val _uiState = MutableStateFlow<DescriptionUiState>(DescriptionUiState.Initial)
     val uiState: StateFlow<DescriptionUiState> = _uiState
 
-    private val _pickedCryptocurrency = MutableStateFlow("")
-    val pickedCryptocurrency: StateFlow<String> = _pickedCryptocurrency
+    private val _pickedCryptocurrencyName = MutableStateFlow("")
+    val pickedCryptocurrencyName: StateFlow<String> = _pickedCryptocurrencyName
 
-    fun changePickedCryptocurrency(cryptocurrency: String) {
-        _pickedCryptocurrency.value = cryptocurrency
+    private val pickedCryptocurrencyId = MutableStateFlow("")
+
+    fun changePickedCryptocurrency(cryptocurrencyName: String, cryptocurrencyId: String) {
+        _pickedCryptocurrencyName.value = cryptocurrencyName
+        pickedCryptocurrencyId.value = cryptocurrencyId
     }
 
     fun changeStateToLoading(){
@@ -36,9 +39,9 @@ class DescriptionVM : ViewModel() {
         }
     }
 
-    private fun startObservingPickedCruptocurrency(){
+    private fun startObservingPickedCruptocurrencyId(){
         viewModelScope.launch {
-            _pickedCryptocurrency.collect {
+            pickedCryptocurrencyId.collect {
                 _uiState.value = DescriptionUiState.Loading
             }
         }
@@ -46,6 +49,6 @@ class DescriptionVM : ViewModel() {
 
     init {
         startObservingUiState()
-        startObservingPickedCruptocurrency()
+        startObservingPickedCruptocurrencyId()
     }
 }

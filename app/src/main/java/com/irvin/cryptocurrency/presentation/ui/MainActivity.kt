@@ -42,8 +42,10 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val cryptocurrenciesRoute = stringResource(id = R.string.cryptocurrencies_route)
                     val descriptionRoute = stringResource(id = R.string.description_currency_route)
-                    val descriptionNavArgument =
-                        stringResource(id = R.string.description_navigate_argument)
+                    val cryptocurrencyNameArgument =
+                        stringResource(id = R.string.description_navigate_argument_name)
+                    val cryptocurrencyIdArgument =
+                        stringResource(id = R.string.description_navigate_argument_id)
                     NavHost(
                         navController = navController,
                         startDestination = cryptocurrenciesRoute
@@ -62,15 +64,27 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(
-                            route = "${descriptionRoute}/{${descriptionNavArgument}}",
-                            arguments = listOf(navArgument(descriptionNavArgument) {
-                                type = NavType.StringType
-                            }),
+                            route = "${descriptionRoute}" +
+                                    "/{${cryptocurrencyNameArgument}}" +
+                                    "/{${cryptocurrencyIdArgument}}",
+                            arguments = listOf(
+                                navArgument(cryptocurrencyNameArgument) {
+                                    type = NavType.StringType
+                                },
+                                navArgument(cryptocurrencyIdArgument) {
+                                    type = NavType.StringType
+                                }
+                            ),
                             enterTransition = { fadeIn() },
                             exitTransition = { fadeOut() }
                         ) { backStackEntry ->
-                            backStackEntry.arguments?.getString(descriptionNavArgument)?.let {
-                                descriptionViewModel.changePickedCryptocurrency(it)
+                            val cryptocurrencyName =  backStackEntry.arguments?.getString(cryptocurrencyNameArgument)
+                            val cryptocurrencyId =  backStackEntry.arguments?.getString(cryptocurrencyIdArgument)
+                            if (cryptocurrencyId != null && cryptocurrencyName != null){
+                                descriptionViewModel.changePickedCryptocurrency(
+                                    cryptocurrencyName,
+                                    cryptocurrencyId
+                                )
                             }
                             DescriptionScreen(Modifier, descriptionViewModel, navController)
                         }

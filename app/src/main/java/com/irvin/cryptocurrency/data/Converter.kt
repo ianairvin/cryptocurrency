@@ -6,10 +6,11 @@ import com.irvin.cryptocurrency.domain.entities.Cryptocurrency
 object Converter {
     fun toCryptocurrency(cryptocurrencyDTO: CryptocurrencyDTO) : Cryptocurrency{
         return Cryptocurrency(
+            id = cryptocurrencyDTO.id,
             name = cryptocurrencyDTO.name,
             shortName = cryptocurrencyDTO.symbol,
-            price = cryptocurrencyDTO.current_price,
-            priceChangePercentage = cryptocurrencyDTO.price_change_percentage_24h,
+            price = cryptocurrencyDTO.currentPrice,
+            priceChangePercentage = cryptocurrencyDTO.priceChangePercentage,
             image = cryptocurrencyDTO.image
             )
     }

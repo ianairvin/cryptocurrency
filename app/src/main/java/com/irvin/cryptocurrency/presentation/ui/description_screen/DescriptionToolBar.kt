@@ -30,7 +30,7 @@ import kotlinx.coroutines.flow.StateFlow
 @Composable
 fun DescriptionToolBar(
     modifier: Modifier,
-    pickedCryptocurrency: StateFlow<String>,
+    pickedCryptocurrencyName: StateFlow<String>,
     navController: NavHostController,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -57,7 +57,7 @@ fun DescriptionToolBar(
                 contentDescription = null
             )
             Text(
-                text = pickedCryptocurrency.collectAsState().value,
+                text = pickedCryptocurrencyName.collectAsState().value,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 32.dp),
