@@ -1,4 +1,4 @@
-package com.irvin.cryptocurrency.presentation.ui.description_screen
+package com.irvin.cryptocurrency.presentation.ui.info_screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,7 +22,7 @@ import com.irvin.cryptocurrency.R
 import com.irvin.cryptocurrency.presentation.ui.theme.Typography
 
 @Composable
-fun DescriptionCryptocurrency() {
+fun InfoCryptocurrency() {
     Column(
         modifier = Modifier
             .fillMaxSize()

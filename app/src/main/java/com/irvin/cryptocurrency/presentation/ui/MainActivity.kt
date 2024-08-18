@@ -18,17 +18,17 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.irvin.cryptocurrency.R
 import com.irvin.cryptocurrency.presentation.ui.cryptocurrencies_screen.CryptocurrenciesScreen
-import com.irvin.cryptocurrency.presentation.ui.description_screen.DescriptionScreen
+import com.irvin.cryptocurrency.presentation.ui.info_screen.InfoScreen
 import com.irvin.cryptocurrency.presentation.ui.theme.BackgroundColor
 import com.irvin.cryptocurrency.presentation.ui.theme.CryptocurrencyTheme
 import com.irvin.cryptocurrency.presentation.viewmodels.CryptocurrenciesVM
-import com.irvin.cryptocurrency.presentation.viewmodels.DescriptionVM
+import com.irvin.cryptocurrency.presentation.viewmodels.InfoVM
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val cryptocurrenciesViewModel: CryptocurrenciesVM by viewModels()
-    private val descriptionViewModel: DescriptionVM by viewModels()
+    private val infoViewModel: InfoVM by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +41,11 @@ class MainActivity : ComponentActivity() {
                         .background(BackgroundColor)
                 ) {
                     val cryptocurrenciesRoute = stringResource(id = R.string.cryptocurrencies_route)
-                    val descriptionRoute = stringResource(id = R.string.description_currency_route)
+                    val infoRoute = stringResource(id = R.string.info_cryptocurrency_route)
                     val cryptocurrencyNameArgument =
-                        stringResource(id = R.string.description_navigate_argument_name)
+                        stringResource(id = R.string.info_navigate_argument_name)
                     val cryptocurrencyIdArgument =
-                        stringResource(id = R.string.description_navigate_argument_id)
+                        stringResource(id = R.string.info_navigate_argument_id)
                     NavHost(
                         navController = navController,
                         startDestination = cryptocurrenciesRoute
@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(
-                            route = "${descriptionRoute}" +
+                            route = "${infoRoute}" +
                                     "/{${cryptocurrencyNameArgument}}" +
                                     "/{${cryptocurrencyIdArgument}}",
                             arguments = listOf(
@@ -81,12 +81,12 @@ class MainActivity : ComponentActivity() {
                             val cryptocurrencyName =  backStackEntry.arguments?.getString(cryptocurrencyNameArgument)
                             val cryptocurrencyId =  backStackEntry.arguments?.getString(cryptocurrencyIdArgument)
                             if (cryptocurrencyId != null && cryptocurrencyName != null){
-                                descriptionViewModel.changePickedCryptocurrency(
+                                infoViewModel.changePickedCryptocurrency(
                                     cryptocurrencyName,
                                     cryptocurrencyId
                                 )
                             }
-                            DescriptionScreen(Modifier, descriptionViewModel, navController)
+                            InfoScreen(Modifier, infoViewModel, navController)
                         }
                     }
                 }

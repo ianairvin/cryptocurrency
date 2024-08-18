@@ -4,12 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class DescriptionVM : ViewModel() {
-    private val _uiState = MutableStateFlow<DescriptionUiState>(DescriptionUiState.Initial)
-    val uiState: StateFlow<DescriptionUiState> = _uiState
+class InfoVM : ViewModel() {
+    private val _uiState = MutableStateFlow<InfoUiState>(InfoUiState.Initial)
+    val uiState: StateFlow<InfoUiState> = _uiState
 
     private val _pickedCryptocurrencyName = MutableStateFlow("")
     val pickedCryptocurrencyName: StateFlow<String> = _pickedCryptocurrencyName
@@ -22,18 +21,18 @@ class DescriptionVM : ViewModel() {
     }
 
     fun changeStateToLoading(){
-        _uiState.value = DescriptionUiState.Loading
+        _uiState.value = InfoUiState.Loading
     }
 
-    private fun getDescriptionCryptocurrency(){
-        _uiState.value = DescriptionUiState.Description("")
+    private fun getInfoCryptocurrency(){
+        _uiState.value = InfoUiState.Info("")
     }
 
     private fun startObservingUiState(){
         viewModelScope.launch {
             _uiState.collect{ state ->
-                if(state is DescriptionUiState.Loading){
-                    getDescriptionCryptocurrency()
+                if(state is InfoUiState.Loading){
+                    getInfoCryptocurrency()
                 }
             }
         }
@@ -42,7 +41,7 @@ class DescriptionVM : ViewModel() {
     private fun startObservingPickedCruptocurrencyId(){
         viewModelScope.launch {
             pickedCryptocurrencyId.collect {
-                _uiState.value = DescriptionUiState.Loading
+                _uiState.value = InfoUiState.Loading
             }
         }
     }

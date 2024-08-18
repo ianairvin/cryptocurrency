@@ -1,4 +1,4 @@
-package com.irvin.cryptocurrency.presentation.ui.description_screen
+package com.irvin.cryptocurrency.presentation.ui.info_screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -24,11 +23,10 @@ import com.irvin.cryptocurrency.R
 import com.irvin.cryptocurrency.presentation.ui.theme.BackgroundColor
 import com.irvin.cryptocurrency.presentation.ui.theme.IconBackColor
 import com.irvin.cryptocurrency.presentation.ui.theme.ToolBarTextStyle
-import com.irvin.cryptocurrency.presentation.ui.theme.Typography
 import kotlinx.coroutines.flow.StateFlow
 
 @Composable
-fun DescriptionToolBar(
+fun InfoToolBar(
     modifier: Modifier,
     pickedCryptocurrencyName: StateFlow<String>,
     navController: NavHostController,

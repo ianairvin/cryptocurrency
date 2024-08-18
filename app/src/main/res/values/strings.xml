@@ -8,9 +8,9 @@
     <string name="error_button">ПОПРОБОВАТЬ</string>
 
     <string name="cryptocurrencies_route">cryptocurrencies</string>
-    <string name="description_currency_route">description_currency</string>
-    <string name="description_navigate_argument_name">picked_cryptocurrency_name</string>
-    <string name="description_navigate_argument_id">picked_cryptocurrency_id</string>
+    <string name="info_cryptocurrency_route">info_cryptocurrency</string>
+    <string name="info_navigate_argument_name">picked_cryptocurrency_name</string>
+    <string name="info_navigate_argument_id">picked_cryptocurrency_id</string>
 
     <string name="header_description_cryptocurrency">Описание</string>
     <string name="header_categories_cryptocurrency">Категории</string>

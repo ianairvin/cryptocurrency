@@ -70,13 +70,13 @@ fun ItemCryptoCurrency(
     pickedCurrency: StateFlow<Currency>,
     navController: NavHostController
 ) {
-    val descriptionRoute = stringResource(id = R.string.description_currency_route)
+    val infoRoute = stringResource(id = R.string.info_cryptocurrency_route)
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp)
             .clickable {
-                navController.navigate("${descriptionRoute}/${item.name}/${item.id}") {
+                navController.navigate("${infoRoute}/${item.name}/${item.id}") {
                     popUpTo(navController.graph.startDestinationId) {
                         saveState = true
                     }
