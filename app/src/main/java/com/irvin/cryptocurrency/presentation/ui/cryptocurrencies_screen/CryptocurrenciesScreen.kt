@@ -14,12 +14,10 @@ fun CryptocurrenciesScreen(
 ) {
     Column(modifier = modifier) {
         CryptocurrenciesToolBar(
-            Modifier.weight(1f),
             cryptocurrenciesViewModel::changePickedCurrency,
             cryptocurrenciesViewModel.pickedCurrency
         )
         CryptocurrenciesContent(
-            Modifier.weight(5f),
             cryptocurrenciesViewModel.uiState,
             cryptocurrenciesViewModel::changePickedCurrency,
             cryptocurrenciesViewModel.pickedCurrency,

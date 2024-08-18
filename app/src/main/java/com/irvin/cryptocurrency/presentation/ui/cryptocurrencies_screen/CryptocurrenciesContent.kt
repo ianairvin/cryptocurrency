@@ -45,13 +45,12 @@ import kotlin.math.abs
 
 @Composable
 fun CryptocurrenciesContent(
-    modifier: Modifier,
     uiState: StateFlow<CryptocurrenciesUiState>,
     changeStateToLoading: () -> Unit,
     pickedCurrency: StateFlow<Currency>,
     navController: NavHostController
 ) {
-    Box(modifier.fillMaxSize()) {
+    Box(Modifier.fillMaxSize()) {
         when (uiState.collectAsState().value) {
             is Initial -> Unit
             is Loading -> LoadingScreen()

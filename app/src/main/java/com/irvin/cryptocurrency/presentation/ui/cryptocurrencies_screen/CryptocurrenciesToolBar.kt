@@ -3,10 +3,14 @@ package com.irvin.cryptocurrency.presentation.ui.cryptocurrencies_screen
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Chip
 import androidx.compose.material.ChipDefaults
 import androidx.compose.material.ExperimentalMaterialApi
@@ -32,37 +36,36 @@ import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun CryptocurrenciesToolBar(
-    modifier: Modifier,
     changePickedCurrency: () -> Unit,
     pickedCurrency: StateFlow<Currency>,
 ) {
     TopAppBar(
-        modifier = modifier.fillMaxWidth(),
+        modifier = Modifier.height(117.dp).fillMaxWidth(),
         backgroundColor = BackgroundColor
     ) {
         Column {
             Row(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
+                modifier = Modifier.wrapContentHeight().fillMaxWidth(),
                 horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    modifier = Modifier.padding(start = 16.dp),
+                    modifier = Modifier.padding(16.dp),
                     style = Typography.h6,
                     text = stringResource(R.string.currencies_title_top_bar)
                 )
             }
             Row(
                 Modifier
+                    .wrapContentHeight()
                     .fillMaxWidth()
-                    .weight(1f),
+                    .padding(start = 16.dp, bottom = 12.dp, top = 12.dp),
                 horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                ChipItem(pickedCurrency, Currency.USD, 16.dp, changePickedCurrency)
-                ChipItem(pickedCurrency, Currency.RUB, 8.dp, changePickedCurrency)
+                ChipItem(pickedCurrency, Currency.USD, changePickedCurrency)
+                Spacer(Modifier.width(8.dp))
+                ChipItem(pickedCurrency, Currency.RUB, changePickedCurrency)
             }
         }
     }
@@ -73,14 +76,10 @@ fun CryptocurrenciesToolBar(
 fun ChipItem(
     pickedCurrency: StateFlow<Currency>,
     currency: Currency,
-    paddingStart: Dp,
     changePickedCurrency: () -> Unit
 ) {
     Chip(
-        modifier = Modifier
-            .padding(start = paddingStart)
-            .height(32.dp)
-            .width(89.dp),
+        modifier = Modifier.height(32.dp).width(89.dp),
         colors = ChipDefaults.chipColors(
             backgroundColor = if (pickedCurrency.collectAsState().value == currency) {
                 PickedChipsTopBarOverlayColor
@@ -97,13 +96,17 @@ fun ChipItem(
             changePickedCurrency()
         }
     ) {
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            style = Typography.body2,
-            textAlign = TextAlign.Center,
-            text = if (currency == Currency.USD) stringResource(R.string.currency_usd) else stringResource(
-                R.string.currency_rub
+        Row(
+            modifier = Modifier.fillMaxSize(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                style = Typography.body2,
+                text = if (currency == Currency.USD) stringResource(R.string.currency_usd) else stringResource(
+                    R.string.currency_rub
+                )
             )
-        )
+        }
     }
 }
