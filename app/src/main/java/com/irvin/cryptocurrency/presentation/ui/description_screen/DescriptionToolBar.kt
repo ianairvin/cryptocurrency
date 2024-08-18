@@ -23,6 +23,7 @@ import androidx.navigation.NavHostController
 import com.irvin.cryptocurrency.R
 import com.irvin.cryptocurrency.presentation.ui.theme.BackgroundColor
 import com.irvin.cryptocurrency.presentation.ui.theme.IconBackColor
+import com.irvin.cryptocurrency.presentation.ui.theme.ToolBarTextStyle
 import com.irvin.cryptocurrency.presentation.ui.theme.Typography
 import kotlinx.coroutines.flow.StateFlow
 
@@ -60,7 +61,7 @@ fun DescriptionToolBar(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 32.dp),
-                style = Typography.h6
+                style = ToolBarTextStyle
             )
         }
     }

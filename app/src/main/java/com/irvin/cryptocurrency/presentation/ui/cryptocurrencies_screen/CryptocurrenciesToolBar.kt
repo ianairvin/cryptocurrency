@@ -29,6 +29,7 @@ import com.irvin.cryptocurrency.domain.entities.Currency
 import com.irvin.cryptocurrency.presentation.ui.theme.BackgroundColor
 import com.irvin.cryptocurrency.presentation.ui.theme.PickedChipsTopBarOverlayColor
 import com.irvin.cryptocurrency.presentation.ui.theme.PickedChipsTopBarTextColor
+import com.irvin.cryptocurrency.presentation.ui.theme.ToolBarTextStyle
 import com.irvin.cryptocurrency.presentation.ui.theme.Typography
 import com.irvin.cryptocurrency.presentation.ui.theme.UnpickedChipsTopBarOverlayColor
 import com.irvin.cryptocurrency.presentation.ui.theme.UnpickedChipsTopBarTextColor
@@ -51,7 +52,7 @@ fun CryptocurrenciesToolBar(
             ) {
                 Text(
                     modifier = Modifier.padding(16.dp),
-                    style = Typography.h6,
+                    style = ToolBarTextStyle,
                     text = stringResource(R.string.currencies_title_top_bar)
                 )
             }

@@ -10,4 +10,7 @@
     <string name="cryptocurrencies_route">cryptocurrencies</string>
     <string name="description_currency_route">description_currency</string>
     <string name="description_navigate_argument">picked_cryptocurrency</string>
+
+    <string name="header_description_cryptocurrency">Описание</string>
+    <string name="header_categories_cryptocurrency">Категории</string>
 </resources>

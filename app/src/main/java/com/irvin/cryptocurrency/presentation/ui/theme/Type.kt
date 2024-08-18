@@ -1,6 +1,7 @@
 package com.irvin.cryptocurrency.presentation.ui.theme
 
 import androidx.compose.material.Typography
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -23,7 +24,7 @@ val Typography = Typography(
         lineHeight = 23.44.sp,
         letterSpacing = 0.15.sp,
         textAlign = TextAlign.Left,
-        color = TitleTopBarTextColor
+        color = H6TextColor
     ),
     body1 = TextStyle(
         fontFamily = Roboto,
@@ -31,7 +32,8 @@ val Typography = Typography(
         fontSize = 16.sp,
         lineHeight = 18.75.sp,
         letterSpacing = 0.15.sp,
-        textAlign = TextAlign.Left
+        textAlign = TextAlign.Left,
+        color = Body1TextColor
     ),
     body2 = TextStyle(
         fontFamily = Roboto,
@@ -49,6 +51,16 @@ val Typography = Typography(
         letterSpacing = 0.75.sp,
         textAlign = TextAlign.Center
     )
+)
+
+val ToolBarTextStyle = TextStyle(
+    fontFamily = Roboto,
+    fontWeight = FontWeight.Medium,
+    fontSize = 20.sp,
+    lineHeight = 23.44.sp,
+    letterSpacing = 0.15.sp,
+    textAlign = TextAlign.Left,
+    color = TitleTopBarTextColor
 )
 
 val CryptoFullNameTextStyle = TextStyle(

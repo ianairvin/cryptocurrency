@@ -23,7 +23,7 @@ class DescriptionVM : ViewModel() {
     }
 
     private fun getDescriptionCryptocurrency(){
-
+        _uiState.value = DescriptionUiState.Description("")
     }
 
     private fun startObservingUiState(){

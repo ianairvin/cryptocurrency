@@ -14,6 +14,10 @@ fun DescriptionScreen(
 ) {
     Column(modifier = modifier) {
         DescriptionToolBar(modifier, descriptionViewModel.pickedCryptocurrency, navController)
-        DescriptionContent(descriptionViewModel.uiState, descriptionViewModel::changeStateToLoading)
+        DescriptionContent(
+            modifier,
+            descriptionViewModel.uiState,
+            descriptionViewModel::changeStateToLoading
+        )
     }
 }
