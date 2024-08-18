@@ -1,7 +1,6 @@
 package com.irvin.cryptocurrency.presentation.ui.cryptocurrencies_screen
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -27,14 +25,14 @@ import coil.compose.AsyncImage
 import com.irvin.cryptocurrency.R
 import com.irvin.cryptocurrency.domain.entities.Cryptocurrency
 import com.irvin.cryptocurrency.domain.entities.Currency
-import com.irvin.cryptocurrency.presentation.ui.ErrorScreen
+import com.irvin.cryptocurrency.presentation.ui.app_common_screen.ErrorScreen
+import com.irvin.cryptocurrency.presentation.ui.app_common_screen.LoadingScreen
 import com.irvin.cryptocurrency.presentation.ui.theme.CryptoDecreasePriceTextStyle
 import com.irvin.cryptocurrency.presentation.ui.theme.CryptoFullNameTextStyle
 import com.irvin.cryptocurrency.presentation.ui.theme.CryptoIncreasePriceTextStyle
 import com.irvin.cryptocurrency.presentation.ui.theme.CryptoNeutralChangePriceTextStyle
 import com.irvin.cryptocurrency.presentation.ui.theme.CryptoPriceTextStyle
 import com.irvin.cryptocurrency.presentation.ui.theme.CryptoShortNameTextStyle
-import com.irvin.cryptocurrency.presentation.ui.theme.ProgressBarColor
 import com.irvin.cryptocurrency.presentation.viewmodels.CryptocurrenciesUiState
 import com.irvin.cryptocurrency.presentation.viewmodels.CryptocurrenciesUiState.Cryptocurrencies
 import com.irvin.cryptocurrency.presentation.viewmodels.CryptocurrenciesUiState.Error
@@ -56,7 +54,7 @@ fun CryptocurrenciesContent(
     Box(modifier.fillMaxSize()) {
         when (uiState.collectAsState().value) {
             is Initial -> Unit
-            is Loading -> LoadingCryptocurrencies()
+            is Loading -> LoadingScreen()
             is Error -> ErrorScreen(changeStateToLoading)
             is Cryptocurrencies -> CryptocurrenciesList(
                 uiState.collectAsState().value as Cryptocurrencies,
@@ -64,19 +62,6 @@ fun CryptocurrenciesContent(
                 navController
             )
         }
-    }
-}
-
-@Composable
-fun LoadingCryptocurrencies() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        CircularProgressIndicator(
-            color = ProgressBarColor
-        )
     }
 }
 
@@ -141,7 +126,7 @@ fun ItemCryptoCurrency(
             symbols.setDecimalSeparator('.')
             symbols.setGroupingSeparator(',')
             val decimalFormatCryptocurrencyName =
-                if((item.price / 0.0001).toInt() == 0) {
+                if ((item.price / 0.0001).toInt() == 0) {
                     DecimalFormat("#,##0.000000", symbols)
                 } else if ((item.price / 0.001).toInt() == 0) {
                     DecimalFormat("#,##0.00000", symbols)

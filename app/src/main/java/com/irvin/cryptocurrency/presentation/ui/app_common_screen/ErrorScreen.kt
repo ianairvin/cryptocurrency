@@ -1,4 +1,4 @@
-package com.irvin.cryptocurrency.presentation.ui
+package com.irvin.cryptocurrency.presentation.ui.app_common_screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

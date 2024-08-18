@@ -41,7 +41,7 @@ class CryptocurrenciesVM @Inject constructor(
         changeStateToLoading()
     }
 
-    private fun startObservingState() {
+    private fun startObservingUiState() {
         viewModelScope.launch {
             _uiState.collect { state ->
                 if (state is CryptocurrenciesUiState.Loading) {
@@ -52,7 +52,7 @@ class CryptocurrenciesVM @Inject constructor(
     }
 
     init {
-        startObservingState()
+        startObservingUiState()
         _uiState.value = CryptocurrenciesUiState.Loading
     }
 }
