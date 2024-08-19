@@ -14,4 +14,7 @@
 
     <string name="header_description_cryptocurrency">Описание</string>
     <string name="header_categories_cryptocurrency">Категории</string>
+
+    <string name="no_information_about_cryptocurrency">Нет информации</string>
+    <string name="toast_text">Приложение для открытия ссылки не найдено</string>
 </resources>
