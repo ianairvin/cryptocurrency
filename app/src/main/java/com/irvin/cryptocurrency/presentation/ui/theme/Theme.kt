@@ -4,6 +4,9 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 
 private val LightColorScheme = lightColors(
@@ -16,10 +19,21 @@ fun CryptocurrencyTheme(
     content: @Composable () -> Unit
 ) {
     val colorScheme = LightColorScheme
-
+    UiController()
     MaterialTheme(
         colors = colorScheme,
         typography = Typography,
         content = content
     )
+}
+
+@Composable
+fun UiController(){
+    val systemUiController = rememberSystemUiController()
+    SideEffect {
+        systemUiController.setStatusBarColor(color = BackgroundColor)
+        systemUiController.statusBarDarkContentEnabled = true
+        systemUiController.setNavigationBarColor(color = BackgroundColor)
+        systemUiController.navigationBarDarkContentEnabled = true
+    }
 }

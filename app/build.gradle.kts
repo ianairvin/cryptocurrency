@@ -52,6 +52,7 @@ android {
 }
 
 dependencies {
+    implementation (libs.google.accompanist.systemuicontroller)
     implementation(libs.coil.compose)
     implementation(libs.okhttp)
     implementation(libs.retrofit)
