@@ -136,5 +136,16 @@ val ErrorTextStyle = TextStyle(
 )
 
 val LinkTextStyle = SpanStyle(
-    color = Color.Blue
+    color = LinkTextColor,
+    textDecoration = TextDecoration.Underline
+)
+
+val ErrorSnackbarTextStyle = TextStyle(
+    fontFamily = Roboto,
+    fontWeight = FontWeight.Normal,
+    fontSize = 14.sp,
+    lineHeight = 20.sp,
+    letterSpacing = 0.25.sp,
+    textAlign = TextAlign.Start,
+    color = ErrorSnackbarTextColor
 )

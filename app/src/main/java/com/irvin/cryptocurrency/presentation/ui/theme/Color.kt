@@ -27,3 +27,8 @@ val CryptoDecreasePriceTextColor = Color(0xFFEB5757)
 val CryptoNeutralChangePriceTextColor = Color(0xFF525252)
 
 val IconBackColor = Color(0x8A000000)
+
+val LinkTextColor = Color.Blue
+
+val ErrorSnackbarOverlayColor = Color(0xFFEB5757)
+val ErrorSnackbarTextColor = Color.White

@@ -7,6 +7,8 @@ sealed interface CryptocurrenciesUiState {
     data object Initial : CryptocurrenciesUiState
     data object Loading : CryptocurrenciesUiState
     @Immutable
-    data class Cryptocurrencies(val list: List<Cryptocurrency>) : CryptocurrenciesUiState
+    data class Cryptocurrencies(
+        val list: List<Cryptocurrency>
+        ) : CryptocurrenciesUiState
     data object Error : CryptocurrenciesUiState
 }

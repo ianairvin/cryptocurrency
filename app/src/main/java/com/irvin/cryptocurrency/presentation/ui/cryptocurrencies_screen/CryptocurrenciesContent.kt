@@ -15,12 +15,14 @@ import com.irvin.cryptocurrency.presentation.viewmodels.CryptocurrenciesUiState.
 import com.irvin.cryptocurrency.presentation.viewmodels.CryptocurrenciesUiState.Initial
 import com.irvin.cryptocurrency.presentation.viewmodels.CryptocurrenciesUiState.Loading
 import kotlinx.coroutines.flow.StateFlow
+import kotlin.reflect.KSuspendFunction0
 
 @Composable
 fun CryptocurrenciesContent(
     uiState: StateFlow<CryptocurrenciesUiState>,
     changeStateToLoading: () -> Unit,
     pickedCurrency: StateFlow<Currency>,
+    updateListFromPullToRefresh: suspend () -> Boolean,
     navController: NavHostController
 ) {
     Box(Modifier.fillMaxSize()) {
@@ -31,6 +33,7 @@ fun CryptocurrenciesContent(
             is Cryptocurrencies -> CryptocurrenciesList(
                 uiState.collectAsState().value as Cryptocurrencies,
                 pickedCurrency,
+                updateListFromPullToRefresh,
                 navController
             )
         }

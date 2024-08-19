@@ -19,8 +19,9 @@ fun CryptocurrenciesScreen(
         )
         CryptocurrenciesContent(
             cryptocurrenciesViewModel.uiState,
-            cryptocurrenciesViewModel::changePickedCurrency,
+            cryptocurrenciesViewModel::changeStateToLoading,
             cryptocurrenciesViewModel.pickedCurrency,
+            cryptocurrenciesViewModel::updateListFromPullToRefresh,
             navController
         )
     }

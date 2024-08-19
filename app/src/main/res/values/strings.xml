@@ -17,4 +17,5 @@
 
     <string name="no_information_about_cryptocurrency">Нет информации</string>
     <string name="toast_text">Приложение для открытия ссылки не найдено</string>
+    <string name="snackbar_text">Произошла ошибка при загрузке</string>
 </resources>

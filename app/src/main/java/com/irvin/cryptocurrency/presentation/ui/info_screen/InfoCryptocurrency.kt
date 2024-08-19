@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.text.Html
 import android.text.style.URLSpan
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,16 +20,18 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.irvin.cryptocurrency.R
+import com.irvin.cryptocurrency.presentation.ui.app_common_screen.ErrorSnackbar
+import com.irvin.cryptocurrency.presentation.ui.theme.LinkTextStyle
 import com.irvin.cryptocurrency.presentation.ui.theme.Typography
 import com.irvin.cryptocurrency.presentation.viewmodels.InfoUiState
 
@@ -98,7 +99,7 @@ fun TextWithLinks(htmlContent: String) {
                 val end = spannedText.getSpanEnd(urlSpan)
                 val url = urlSpan.url
                 addStyle(
-                    style = SpanStyle(color = Color.Blue),
+                    style = LinkTextStyle,
                     start = start,
                     end = end
                 )
