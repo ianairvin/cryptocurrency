@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Chip
 import androidx.compose.material.ChipDefaults
 import androidx.compose.material.ExperimentalMaterialApi
@@ -21,8 +20,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.irvin.cryptocurrency.R
 import com.irvin.cryptocurrency.domain.entities.Currency
@@ -41,12 +38,16 @@ fun CryptocurrenciesToolBar(
     pickedCurrency: StateFlow<Currency>,
 ) {
     TopAppBar(
-        modifier = Modifier.height(117.dp).fillMaxWidth(),
+        modifier = Modifier
+            .height(117.dp)
+            .fillMaxWidth(),
         backgroundColor = BackgroundColor
     ) {
         Column {
             Row(
-                modifier = Modifier.wrapContentHeight().fillMaxWidth(),
+                modifier = Modifier
+                    .wrapContentHeight()
+                    .fillMaxWidth(),
                 horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -80,7 +81,9 @@ fun ChipItem(
     changePickedCurrency: () -> Unit
 ) {
     Chip(
-        modifier = Modifier.height(32.dp).width(89.dp),
+        modifier = Modifier
+            .height(32.dp)
+            .width(89.dp),
         colors = ChipDefaults.chipColors(
             backgroundColor = if (pickedCurrency.collectAsState().value == currency) {
                 PickedChipsTopBarOverlayColor

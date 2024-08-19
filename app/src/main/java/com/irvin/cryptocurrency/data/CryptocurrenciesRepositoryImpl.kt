@@ -1,12 +1,10 @@
 package com.irvin.cryptocurrency.data
 
-import android.util.Log
 import com.irvin.cryptocurrency.data.retrofit.Api
 import com.irvin.cryptocurrency.domain.entities.Cryptocurrency
 import com.irvin.cryptocurrency.domain.entities.Currency
 import com.irvin.cryptocurrency.domain.entities.InfoCryptocurrency
 import com.irvin.cryptocurrency.domain.repository.CryptocurrenciesRepository
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class CryptocurrenciesRepositoryImpl @Inject constructor(
@@ -27,7 +25,7 @@ class CryptocurrenciesRepositoryImpl @Inject constructor(
     override suspend fun getInfoCryotocurrency(id: String): Result<InfoCryptocurrency> {
         return try {
             Result.success(Converter.toInfoCryptocurrency(api.loadInfoCryptocurrency(id)))
-        } catch (e: Exception){
+        } catch (e: Exception) {
             Result.failure(e)
         }
     }

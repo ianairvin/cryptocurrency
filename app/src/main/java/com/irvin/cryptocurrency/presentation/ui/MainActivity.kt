@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(
-                            route = "${infoRoute}" +
+                            route = infoRoute +
                                     "/{${cryptocurrencyNameArgument}}" +
                                     "/{${cryptocurrencyIdArgument}}",
                             arguments = listOf(
@@ -78,9 +78,11 @@ class MainActivity : ComponentActivity() {
                             enterTransition = { fadeIn() },
                             exitTransition = { fadeOut() }
                         ) { backStackEntry ->
-                            val cryptocurrencyName =  backStackEntry.arguments?.getString(cryptocurrencyNameArgument)
-                            val cryptocurrencyId =  backStackEntry.arguments?.getString(cryptocurrencyIdArgument)
-                            if (cryptocurrencyId != null && cryptocurrencyName != null){
+                            val cryptocurrencyName =
+                                backStackEntry.arguments?.getString(cryptocurrencyNameArgument)
+                            val cryptocurrencyId =
+                                backStackEntry.arguments?.getString(cryptocurrencyIdArgument)
+                            if (cryptocurrencyId != null && cryptocurrencyName != null) {
                                 infoViewModel.changePickedCryptocurrency(
                                     cryptocurrencyName,
                                     cryptocurrencyId

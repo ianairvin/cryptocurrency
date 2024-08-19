@@ -8,8 +8,8 @@ import androidx.compose.ui.Modifier
 import com.irvin.cryptocurrency.presentation.ui.app_common_screen.ErrorScreen
 import com.irvin.cryptocurrency.presentation.ui.app_common_screen.LoadingScreen
 import com.irvin.cryptocurrency.presentation.viewmodels.InfoUiState
-import com.irvin.cryptocurrency.presentation.viewmodels.InfoUiState.Info
 import com.irvin.cryptocurrency.presentation.viewmodels.InfoUiState.Error
+import com.irvin.cryptocurrency.presentation.viewmodels.InfoUiState.Info
 import com.irvin.cryptocurrency.presentation.viewmodels.InfoUiState.Initial
 import com.irvin.cryptocurrency.presentation.viewmodels.InfoUiState.Loading
 import kotlinx.coroutines.flow.StateFlow

@@ -5,6 +5,6 @@ import com.irvin.cryptocurrency.domain.entities.Currency
 import com.irvin.cryptocurrency.domain.entities.InfoCryptocurrency
 
 interface CryptocurrenciesRepository {
-    suspend fun getCryptocurrencies(currency: Currency) : Result<List<Cryptocurrency>>
-    suspend fun getInfoCryotocurrency(id: String) : Result<InfoCryptocurrency>
+    suspend fun getCryptocurrencies(currency: Currency): Result<List<Cryptocurrency>>
+    suspend fun getInfoCryotocurrency(id: String): Result<InfoCryptocurrency>
 }

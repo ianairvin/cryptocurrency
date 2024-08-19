@@ -24,7 +24,6 @@ import com.irvin.cryptocurrency.R
 import com.irvin.cryptocurrency.presentation.ui.theme.ButtonColor
 import com.irvin.cryptocurrency.presentation.ui.theme.ButtonTextColor
 import com.irvin.cryptocurrency.presentation.ui.theme.ErrorTextStyle
-import com.irvin.cryptocurrency.presentation.ui.theme.Typography
 
 
 @Composable

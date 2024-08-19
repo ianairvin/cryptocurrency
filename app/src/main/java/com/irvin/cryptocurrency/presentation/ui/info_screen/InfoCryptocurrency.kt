@@ -1,6 +1,6 @@
 package com.irvin.cryptocurrency.presentation.ui.info_screen
 
-пimport android.content.ActivityNotFoundException
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.text.Html
@@ -126,7 +126,7 @@ fun TextWithLinks(htmlContent: String) {
                     }
                     try {
                         context.startActivity(intent)
-                    } catch(e: ActivityNotFoundException) {
+                    } catch (e: ActivityNotFoundException) {
                         Toast.makeText(context, toastText, Toast.LENGTH_LONG).show()
                     }
                 }

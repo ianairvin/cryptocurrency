@@ -15,7 +15,6 @@ import com.irvin.cryptocurrency.presentation.viewmodels.CryptocurrenciesUiState.
 import com.irvin.cryptocurrency.presentation.viewmodels.CryptocurrenciesUiState.Initial
 import com.irvin.cryptocurrency.presentation.viewmodels.CryptocurrenciesUiState.Loading
 import kotlinx.coroutines.flow.StateFlow
-import kotlin.reflect.KSuspendFunction0
 
 @Composable
 fun CryptocurrenciesContent(
