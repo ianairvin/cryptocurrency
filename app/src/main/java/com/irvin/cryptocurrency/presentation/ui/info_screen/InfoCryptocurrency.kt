@@ -1,5 +1,6 @@
 package com.irvin.cryptocurrency.presentation.ui.info_screen
 
+пimport android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.text.Html
@@ -20,8 +21,6 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -30,7 +29,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.irvin.cryptocurrency.R
-import com.irvin.cryptocurrency.presentation.ui.app_common_screen.ErrorSnackbar
 import com.irvin.cryptocurrency.presentation.ui.theme.LinkTextStyle
 import com.irvin.cryptocurrency.presentation.ui.theme.Typography
 import com.irvin.cryptocurrency.presentation.viewmodels.InfoUiState
@@ -121,18 +119,16 @@ fun TextWithLinks(htmlContent: String) {
         onClick = { offset ->
             annotatedString.getStringAnnotations("URL", offset, offset).firstOrNull()
                 ?.let { annotation ->
-                    val browserSelectorIntent = Intent()
-                        .setAction(Intent.ACTION_VIEW)
-                        .addCategory(Intent.CATEGORY_BROWSABLE)
-                        .setData(Uri.parse("http:"))
-                    val intent = Intent()
-                        .setAction(Intent.ACTION_VIEW)
-                        .addCategory(Intent.CATEGORY_BROWSABLE)
-                        .setData(Uri.parse(annotation.item))
-                    intent.selector = browserSelectorIntent
-                    intent.resolveActivity(context.packageManager)?.let {
+                    val url = annotation.item
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+                        addCategory(Intent.CATEGORY_BROWSABLE)
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    }
+                    try {
                         context.startActivity(intent)
-                    } ?: Toast.makeText(context, toastText, Toast.LENGTH_LONG).show()
+                    } catch(e: ActivityNotFoundException) {
+                        Toast.makeText(context, toastText, Toast.LENGTH_LONG).show()
+                    }
                 }
         }
     )
