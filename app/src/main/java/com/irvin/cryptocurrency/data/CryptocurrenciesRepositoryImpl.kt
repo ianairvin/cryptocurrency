@@ -17,7 +17,7 @@ class CryptocurrenciesRepositoryImpl @Inject constructor(
     ): Result<List<Cryptocurrency>> {
         return try {
             val apiList = api.loadCryptocurrencies(currency.title.lowercase())
-            val list = apiList.map { Converter.toCryptocurrency(it) }
+            val list = apiList.map { Converter.toCryptocurrency(it) }.shuffled()
             Result.success(list)
         } catch (e: Exception) {
             Result.failure(e)
