@@ -24,7 +24,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,7 +44,6 @@ import com.irvin.cryptocurrency.presentation.ui.theme.CryptoShortNameTextStyle
 import com.irvin.cryptocurrency.presentation.viewmodels.CryptocurrenciesUiState.Cryptocurrencies
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -69,18 +67,21 @@ fun CryptocurrenciesList(
             isErrorLoading.value = false
         }
     }
-    val coroutineScope = rememberCoroutineScope()
+
     var isRefreshing by remember { mutableStateOf(false) }
     val pullRefreshState =
         rememberPullRefreshState(
             refreshing = isRefreshing,
             onRefresh = {
                 isRefreshing = true
-                coroutineScope.launch {
-                    isErrorLoading.value = updateListFromPullToRefresh()
-                    withContext(Dispatchers.Main) { isRefreshing = false }
-                }
             })
+    LaunchedEffect(key1 = isRefreshing) {
+        if (isRefreshing) {
+            isErrorLoading.value = updateListFromPullToRefresh()
+            withContext(Dispatchers.Main) { isRefreshing = false }
+        }
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
