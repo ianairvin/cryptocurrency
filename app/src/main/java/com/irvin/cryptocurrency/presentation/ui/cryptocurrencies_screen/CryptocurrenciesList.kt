@@ -35,6 +35,7 @@ import com.irvin.cryptocurrency.R
 import com.irvin.cryptocurrency.domain.entities.Cryptocurrency
 import com.irvin.cryptocurrency.domain.entities.Currency
 import com.irvin.cryptocurrency.presentation.ui.app_common_screen.ErrorSnackbar
+import com.irvin.cryptocurrency.presentation.ui.formattingCryptoPrice
 import com.irvin.cryptocurrency.presentation.ui.theme.CryptoDecreasePriceTextStyle
 import com.irvin.cryptocurrency.presentation.ui.theme.CryptoFullNameTextStyle
 import com.irvin.cryptocurrency.presentation.ui.theme.CryptoIncreasePriceTextStyle
@@ -160,16 +161,6 @@ fun ItemCryptocurrency(
             val symbols = remember { DecimalFormatSymbols() }
             symbols.setDecimalSeparator('.')
             symbols.setGroupingSeparator(',')
-            val decimalFormatCryptocurrencyName =
-                if ((item.price / 0.0001).toInt() == 0) {
-                    DecimalFormat("#,##0.000000", symbols)
-                } else if ((item.price / 0.001).toInt() == 0) {
-                    DecimalFormat("#,##0.00000", symbols)
-                } else if ((item.price / 0.01).toInt() == 0) {
-                    DecimalFormat("#,##0.0000", symbols)
-                } else {
-                    DecimalFormat("#,##0.00", symbols)
-                }
             Row(
                 modifier = Modifier
                     .weight(1f)
@@ -184,9 +175,11 @@ fun ItemCryptocurrency(
                 )
                 Text(
                     modifier = Modifier.weight(1f),
-                    text = (if (pickedCurrency.collectAsState().value == Currency.USD) "$ "
-                    else "₽ ")
-                            + decimalFormatCryptocurrencyName.format(item.price),
+                    text = formattingCryptoPrice(
+                        pickedCurrency.collectAsState().value,
+                        item.price,
+                        symbols
+                    ),
                     style = CryptoPriceTextStyle
                 )
             }
@@ -202,47 +195,56 @@ fun ItemCryptocurrency(
                     text = item.shortName.uppercase(),
                     style = CryptoShortNameTextStyle
                 )
-                if ((item.priceChangePercentage / 0.01).toInt() == 0
-                    && (item.priceChangePercentage / 0.0001).toInt() != 0
-                ) {
-                    if (item.priceChangePercentage > 0.0) {
-                        Text(
-                            modifier = Modifier.weight(1f),
-                            text = DecimalFormat("+ 0.0000", symbols)
-                                .format(item.priceChangePercentage) + "%",
-                            style = CryptoIncreasePriceTextStyle
-                        )
-                    } else {
-                        Text(
-                            modifier = Modifier.weight(1f),
-                            text = DecimalFormat("- 0.0000", symbols)
-                                .format(abs(item.priceChangePercentage)) + "%",
-                            style = CryptoDecreasePriceTextStyle
-                        )
-                    }
-                } else if ((item.priceChangePercentage / 0.0001) == 0.0) {
-                    Text(
-                        modifier = Modifier.weight(1f),
-                        text = DecimalFormat("0.00", symbols)
-                            .format(item.priceChangePercentage) + "%",
-                        style = CryptoNeutralChangePriceTextStyle
-                    )
-                } else if (item.priceChangePercentage > 0.0) {
-                    Text(
-                        modifier = Modifier.weight(1f),
-                        text = DecimalFormat("+ 0.00", symbols)
-                            .format(item.priceChangePercentage) + "%",
-                        style = CryptoIncreasePriceTextStyle
-                    )
-                } else {
-                    Text(
-                        modifier = Modifier.weight(1f),
-                        text = DecimalFormat("- 0.00", symbols)
-                            .format(abs(item.priceChangePercentage)) + "%",
-                        style = CryptoDecreasePriceTextStyle
-                    )
-                }
+                TextPercentages(Modifier.weight(1f), item.priceChangePercentage, symbols)
             }
         }
+    }
+}
+
+@Composable
+fun TextPercentages(
+    modifier: Modifier,
+    priceChangePercentage: Double,
+    symbols: DecimalFormatSymbols
+) {
+    if ((priceChangePercentage / 0.01).toInt() == 0
+        && (priceChangePercentage / 0.0001).toInt() != 0
+    ) {
+        if (priceChangePercentage > 0.0) {
+            Text(
+                modifier = modifier,
+                text = DecimalFormat("+ 0.0000", symbols)
+                    .format(priceChangePercentage) + "%",
+                style = CryptoIncreasePriceTextStyle
+            )
+        } else {
+            Text(
+                modifier = modifier,
+                text = DecimalFormat("- 0.0000", symbols)
+                    .format(abs(priceChangePercentage)) + "%",
+                style = CryptoDecreasePriceTextStyle
+            )
+        }
+    } else if ((priceChangePercentage / 0.0001) == 0.0) {
+        Text(
+            modifier = modifier,
+            text = DecimalFormat("0.00", symbols)
+                .format(priceChangePercentage) + "%",
+            style = CryptoNeutralChangePriceTextStyle
+        )
+    } else if (priceChangePercentage > 0.0) {
+        Text(
+            modifier = modifier,
+            text = DecimalFormat("+ 0.00", symbols)
+                .format(priceChangePercentage) + "%",
+            style = CryptoIncreasePriceTextStyle
+        )
+    } else {
+        Text(
+            modifier = modifier,
+            text = DecimalFormat("- 0.00", symbols)
+                .format(abs(priceChangePercentage)) + "%",
+            style = CryptoDecreasePriceTextStyle
+        )
     }
 }
